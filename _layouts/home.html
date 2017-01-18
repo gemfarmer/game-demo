@@ -1,0 +1,24 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Making a game with Phaser</title>
+	
+</head>
+<body>
+    <nav>
+    <h1>Examples</h1>
+    <ul>
+    {% for page in site.examples %}
+        <li><a href="{{ site.baseurl }}{{ page.permalink }}">{{ page.title }}</a></li>
+    {% endfor %}
+    </ul>
+    <h1>Demos</h1>
+    <ul>
+    {% for page in site.demos %}
+        <li><a href="{{ site.baseurl }}{{ page.permalink }}">{{ page.title }}</a></li>
+    {% endfor %}
+    </ul>
+    </nav>
+</body>
+</html>

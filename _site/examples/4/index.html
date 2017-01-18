@@ -1,0 +1,126 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Phaser - Making your first game, part 9</title>
+	<script type="text/javascript" src="/js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background: #f1f1f1;
+            display: flex;
+            flex-direction: row-reverse;
+            overflow: scroll !important;
+            height: 100vh;
+        }
+
+        .sidenav {
+            margin: 1.5rem;
+            width: 100%;
+            overflow: scroll;
+        }
+
+
+        .sidenav section {
+            width: 75%;
+            display: inline-block;
+            margin-right: 0;
+            float: left;
+        }
+
+        .sidenav section:last-of-type {
+            width: 25%;
+            float: right;
+            text-align: right;
+        }
+
+        canvas {
+            /*position: fixed;*/
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/highlighting.css" type="text/css"> -->
+    <link rel="stylesheet" href="/styles.css" type="text/css">
+</head>
+<body>
+    <main class="sidenav">
+        <div >
+            <section>
+                <h2>Part 2</h2>
+                <h4>Create a world!</h4>
+                <p></p>
+                <p><p>With the same method as we created the star, we can create a backdrop for our game!</p>
+</p>
+            </section>
+            <section>
+                <p>
+                    <a href="/">Home</a>
+                </p>
+                <p>
+                    <a href="/examples/1/">Previous</a>
+                </p>
+                <p>
+                    <a href="/examples/5/">Next</a>
+                </p>
+            </section>
+        </div>
+        
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
+
+function preload() {
+
+    game.load.image('sky', '/img/sky.png');
+    game.load.image('ground', '/img/platform.png');
+    game.load.image('star', '/img/star.png');
+    game.load.spritesheet('dude', '/img/dude.png', 32, 48);
+
+}
+
+var platforms;
+
+function create() {
+
+    //  We're going to be using physics, so enable the Arcade Physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    //  A simple background for our game
+    game.add.sprite(0, 0, 'sky');
+
+    //  The platforms group contains the ground and the 2 ledges we can jump on
+    platforms = game.add.group();
+
+    //  We will enable physics for any object that is created in this group
+    platforms.enableBody = true;
+
+    // Here we create the ground.
+    var ground = platforms.create(0, game.world.height - 64, 'ground');
+
+    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+    ground.scale.setTo(2, 2);
+
+    //  This stops it from falling away when you jump on it
+    ground.body.immovable = true;
+
+    //  Now let's create two ledges
+    var ledge = platforms.create(400, 400, 'ground');
+
+    ledge.body.immovable = true;
+
+    ledge = platforms.create(-150, 250, 'ground');
+
+    ledge.body.immovable = true;
+    
+}
+
+function update() {
+}
+
+</script>
+    </main>
+
+    
+    
+</body>
+</html>

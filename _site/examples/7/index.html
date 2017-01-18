@@ -1,0 +1,190 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Phaser - Making your first game, part 9</title>
+	<script type="text/javascript" src="/js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            background: #f1f1f1;
+            display: flex;
+            flex-direction: row-reverse;
+            overflow: scroll !important;
+            height: 100vh;
+        }
+
+        .sidenav {
+            margin: 1.5rem;
+            width: 100%;
+            overflow: scroll;
+        }
+
+
+        .sidenav section {
+            width: 75%;
+            display: inline-block;
+            margin-right: 0;
+            float: left;
+        }
+
+        .sidenav section:last-of-type {
+            width: 25%;
+            float: right;
+            text-align: right;
+        }
+
+        canvas {
+            /*position: fixed;*/
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/main.css" type="text/css">
+    <!-- <link rel="stylesheet" href="/highlighting.css" type="text/css"> -->
+    <link rel="stylesheet" href="/styles.css" type="text/css">
+</head>
+<body>
+    <main class="sidenav">
+        <div >
+            <section>
+                <h2>Part 7</h2>
+                <h4>Add movement</h4>
+                <p></p>
+                <p><p>It is a bit boring if our avatar can’t do anything. Let’s make the thing move!</p>
+
+<p>We can add a series of images and move rapidly through them to simulate movement.</p>
+
+<p><img src="/img/dude.png" /></p>
+
+<p>Then, to make it so that our avatar can move around and jump on things, we can tell our program to allow the platform and avatar collide. If we didn’t do that, it would treat the platforms like a background, and there would be nothing to jump on!</p>
+</p>
+            </section>
+            <section>
+                <p>
+                    <a href="/">Home</a>
+                </p>
+                <p>
+                    <a href="/examples/6/">Previous</a>
+                </p>
+                <p>
+                    <a href="/examples/8/">Next</a>
+                </p>
+            </section>
+        </div>
+        
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
+
+function preload() {
+
+    game.load.image('sky', '/img/sky.png');
+    game.load.image('ground', '/img/platform.png');
+    game.load.image('star', '/img/star.png');
+    game.load.spritesheet('dude', '/img/dude.png', 32, 48);
+
+}
+
+var player;
+var platforms;
+var cursors;
+
+function create() {
+
+    //  We're going to be using physics, so enable the Arcade Physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    //  A simple background for our game
+    game.add.sprite(0, 0, 'sky');
+
+    //  The platforms group contains the ground and the 2 ledges we can jump on
+    platforms = game.add.group();
+
+    //  We will enable physics for any object that is created in this group
+    platforms.enableBody = true;
+
+    // Here we create the ground.
+    var ground = platforms.create(0, game.world.height - 64, 'ground');
+
+    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+    ground.scale.setTo(2, 2);
+
+    //  This stops it from falling away when you jump on it
+    ground.body.immovable = true;
+
+    //  Now let's create two ledges
+    var ledge = platforms.create(400, 400, 'ground');
+    ledge.body.immovable = true;
+
+    ledge = platforms.create(-50, 250, 'ground');
+    ledge.body.immovable = true;
+
+    // ledge = platforms.create(500, 200, 'ground');
+    // ledge.body.immovable = true;
+
+    // ledge = platforms.create(100, 300, 'ground');
+    // ledge.body.immovable = true;
+
+    // The player and its settings
+    player = game.add.sprite(32, game.world.height - 150, 'dude');
+
+    //  We need to enable physics on the player
+    game.physics.arcade.enable(player);
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    player.body.bounce.y = 0.2;
+    player.body.gravity.y = 1500;
+    player.body.collideWorldBounds = true;
+
+    //  Our two animations, walking left and right.
+    player.animations.add('left', [0, 1, 2, 3], 10, true);
+    player.animations.add('right', [5, 6, 7, 8], 10, true);
+
+    //  Our controls.
+    cursors = game.input.keyboard.createCursorKeys();
+    
+}
+
+function update() {
+
+    //  Collide the player and the stars with the platforms
+    game.physics.arcade.collide(player, platforms);
+
+    //  Reset the players velocity (movement)
+    player.body.velocity.x = 0;
+
+    if (cursors.left.isDown)
+    {
+        //  Move to the left
+        player.body.velocity.x = -100;
+
+        player.animations.play('left');
+    }
+    else if (cursors.right.isDown)
+    {
+        //  Move to the right
+        player.body.velocity.x = 100;
+
+        player.animations.play('right');
+    }
+    else
+    {
+        //  Stand still
+        player.animations.stop();
+
+        player.frame = 4;
+    }
+    
+    //  Allow the player to jump if they are touching the ground.
+    if (cursors.up.isDown && player.body.touching.down)
+    {
+        player.body.velocity.y = -750;
+    }
+
+}
+</script>
+    </main>
+
+    
+    
+</body>
+</html>

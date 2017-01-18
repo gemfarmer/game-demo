@@ -1,0 +1,15 @@
+
+baseurl: ''
+
+collections:
+  examples:
+    output: true
+    permalink: /examples/:path/
+    layout: default
+  demos:
+    output: true
+    permalink: /demos/:path/
+    layout: default
+
+markdown: kramdown
+theme: minima
