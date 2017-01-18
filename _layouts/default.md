@@ -51,6 +51,9 @@
                     <a href="{{ site.baseurl }}/">Home</a>
                 </p>
                 <p>
+                    <a href="{{ site.baseurl }}/demos/1/">Demos</a>
+                </p>
+                <p>
                     <a href="{{ site.baseurl }}{{ page.previous_page }}">Previous</a>
                 </p>
                 <p>
