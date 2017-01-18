@@ -2,15 +2,31 @@
 layout: default
 title: Part 7
 permalink: /examples/7/
-next_page: /examples/8/
+next_page: /demos/1/
 previous_page: /examples/6/
-subtitle: Add movement
+subtitle: Keeping score
 ---
 
-It is a bit boring if our avatar can't do anything. Let's make the thing move! 
+While it is fun to grab the stars, it would be great to have some indication that we are succeeding. We can add a point total to get this accross
 
-We can add a series of images and move rapidly through them to simulate movement. 
+```js
+//  The score
+scoreText = game.add.text(
+    16, 
+    16, 
+    'score: 0', 
+    { fontSize: '32px', fill: '#000' }
+);
 
-<img src="{{ site.baseurl }}/img/dude.png"/>
 
-Then, to make it so that our avatar can move around and jump on things, we can tell our program to allow the platform and avatar collide. If we didn't do that, it would treat the platforms like a background, and there would be nothing to jump on!
+function collectStar (player, star) {
+    
+    // Removes the star from the screen
+    star.kill();
+
+    //  Add and update the score
+    score += 10;
+    scoreText.text = 'Score: ' + score;
+
+}
+```

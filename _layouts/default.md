@@ -20,7 +20,6 @@
             overflow: scroll;
         }
 
-
         .sidenav section {
             width: 75%;
             display: inline-block;
@@ -33,10 +32,6 @@
             float: right;
             text-align: right;
         }
-
-        canvas {
-            /*position: fixed;*/
-        }
     </style>
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/main.css" type="text/css">
     <!-- <link rel="stylesheet" href="{{ site.baseurl }}/highlighting.css" type="text/css"> -->
@@ -44,9 +39,9 @@
 </head>
 <body>
     <main class="sidenav">
-        <div >
+        <div>
             <section>
-                <h2>{{ page.title }}</h2>
+                <h3>{{ page.title }}</h3>
                 <h4>{{ page.subtitle }}</h4>
                 <p>{{ page.description }}</p>
                 <p>{{ content }}</p>

@@ -2,8 +2,8 @@
 layout: default
 title: Part 1
 permalink: /demos/1/
-next_page: /demos/2/
-previous_page: /examples/9/
+previous_page: /demos/7/
+next_page: /
 subtitle: Motion
 ---
 

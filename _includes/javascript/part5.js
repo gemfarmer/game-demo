@@ -12,7 +12,9 @@ function preload() {
 
 }
 
+var player;
 var platforms;
+var cursors;
 
 function create() {
 
@@ -41,8 +43,14 @@ function create() {
     var ledge = platforms.create(400, 400, 'ground');
     ledge.body.immovable = true;
 
-    ledge = platforms.create(-150, 250, 'ground');
+    ledge = platforms.create(-50, 250, 'ground');
     ledge.body.immovable = true;
+
+    // ledge = platforms.create(500, 200, 'ground');
+    // ledge.body.immovable = true;
+
+    // ledge = platforms.create(100, 300, 'ground');
+    // ledge.body.immovable = true;
 
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'dude');
@@ -51,17 +59,54 @@ function create() {
     game.physics.arcade.enable(player);
 
     //  Player physics properties. Give the little guy a slight bounce.
-    player.body.bounce.y = 0.5;
-    player.body.gravity.y = 300;
+    player.body.bounce.y = 0.2;
+    player.body.gravity.y = 1500;
     player.body.collideWorldBounds = true;
 
     //  Our two animations, walking left and right.
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
 
+    //  Our controls.
+    cursors = game.input.keyboard.createCursorKeys();
+    
 }
 
 function update() {
-}
 
+    //  Collide the player and the stars with the platforms
+    game.physics.arcade.collide(player, platforms);
+
+    //  Reset the players velocity (movement)
+    player.body.velocity.x = 0;
+
+    if (cursors.left.isDown)
+    {
+        //  Move to the left
+        player.body.velocity.x = -100;
+
+        player.animations.play('left');
+    }
+    else if (cursors.right.isDown)
+    {
+        //  Move to the right
+        player.body.velocity.x = 100;
+
+        player.animations.play('right');
+    }
+    else
+    {
+        //  Stand still
+        player.animations.stop();
+
+        player.frame = 4;
+    }
+    
+    //  Allow the player to jump if they are touching the ground.
+    if (cursors.up.isDown && player.body.touching.down)
+    {
+        player.body.velocity.y = -750;
+    }
+
+}
 </script>

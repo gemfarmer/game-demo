@@ -2,9 +2,9 @@
 layout: default
 title: Part 1
 subtitle: The beginning
-permalink: /examples/1/
-next_page: /examples/4/
-previous_page: /demos/2/
+permalink: /
+next_page: /examples/2/
+previous_page: /demos/1/
 
 ---
 
